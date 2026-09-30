@@ -32,6 +32,9 @@ usort($catalogo, function (array $a, array $b): int {
     return $b['autonomia'] <=> $a['autonomia'];
 });
 
+// BLOQUE 4
+
+ob_start();
 // Bucle para recorrer el catálogo ya ordenado
 foreach ($catalogo as $vehiculo) {
     $categoria_titulo  = mb_convert_case($vehiculo['categoria'], MB_CASE_TITLE, 'UTF-8');
@@ -41,6 +44,19 @@ foreach ($catalogo as $vehiculo) {
     // Diferenciación de existencia de propiedad vs valor no nulo
     $existe_clave = array_key_exists('descuento', $vehiculo);
     $tiene_valor  = isset($vehiculo['descuento']);
+    echo "<p>";
+    echo "Modelo: {$modelo_mayus} (Longitud: {$vehiculo_longitud})<br>";
+    echo "Categoría: {$categoria_titulo}<br>";
+    echo "Autonomía: {$vehiculo['autonomia']} km<br>";
+    echo "Existe clave 'descuento': " . ($existe_clave ? 'SÍ' : 'NO') . "<br>";
+    echo "Tiene valor NO nulo: " . ($tiene_valor ? 'SÍ' : 'NO');
+    echo "</p><hr>";
 }
-
+$reporte_html = ob_get_clean();
+echo htmlspecialchars($reporte_html,ENT_QUOTES,'UTF-8');
+$json = json_encode($catalogo, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 ?>
+<script>
+    const datos = <?= $json ?>;
+    console.log("Datos cargados correctamente", datos);
+</script>
