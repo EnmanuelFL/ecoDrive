@@ -1,5 +1,5 @@
 <?php declare(strict_types= 1); ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);   
-// BLOQUE 1
+// BLOQUE 1: Configuracion del servidor, control de entrada y diagnostico
 
 $unidades_raw = $_GET['unidades'] ?? null;
 $unidades = filter_var($unidades_raw, FILTER_VALIDATE_INT);
@@ -12,7 +12,7 @@ echo "<pre>";
 var_dump($unidades);
 echo "</pre>";
 
-// BLOQUE 2
+// BLOQUE 2: Procesador de alquileres, excepciones y tarifas
 
 /** 
 *@param array<array{modelo: string, precio_dia: float}> $vehiculos
