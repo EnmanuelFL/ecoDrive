@@ -5,7 +5,7 @@ if (!isset($_GET['unidades'])) {
     $_GET['unidades'] = 3; // Valor por defecto
 }
 
-// Cargamos y ejecutamos la lógica de procesador.php
+// Cargamos y ejecutamos la logica de procesador.php
 require_once 'procesador.php';
 
 // BLOQUE 3:
@@ -35,7 +35,7 @@ $catalogo = [
     ]
 ];
 
-// Ordenación descendente por autonomía (<=>)
+// Ordenacion descendente por autonomia
 usort($catalogo, function (array $a, array $b): int {
     return $b['autonomia'] <=> $a['autonomia'];
 });
@@ -49,7 +49,7 @@ ob_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoDrive - Reporte de Inventario</title>
+    <title>EcoDrive</title>
     <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS vía CDN -->
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 p-6 min-h-screen">
@@ -59,7 +59,7 @@ ob_start();
         <div class="bg-white border-l-4 border-emerald-600 rounded-r-lg p-5 shadow-sm mb-6 flex justify-between items-center">
             <div>
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Simulación de Reserva</p>
-                <p class="text-slate-800 font-medium text-sm mt-1">Dias solicitados: <span class="font-bold text-emerald-600"><?= $unidades ?></span></p>
+                <p class="text-slate-800 font-medium text-sm mt-1">Unidades solicitados: <span class="font-bold text-emerald-600"><?= $unidades ?></span></p>
             </div>
             <div class="text-right">
                 <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Coste Total Calculado</p>
@@ -122,7 +122,7 @@ ob_start();
 <?php
 $reporte_html = ob_get_clean();
 
-// Salida directa del HTML maquetado y desinfectado
+// Salida directa del HTML maquetado 
 echo $reporte_html;
 
 $json = json_encode($catalogo, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
