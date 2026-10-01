@@ -4,7 +4,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL); 
 
-// BLOQUE 1: Validación de entrada
+// BLOQUE 1: Validacion de entrada
 $unidades_raw = $_GET['unidades'] ?? null;
 $unidades = filter_var($unidades_raw, FILTER_VALIDATE_INT);
 
@@ -13,7 +13,7 @@ if ($unidades === false || $unidades <= 0) {
     die('Error 400: La cantidad de unidades debe ser un número entero positivo.');
 }
 
-// BLOQUE 2: Lógica de cálculo y excepciones
+// BLOQUE 2: Logica de calculo y excepciones
 
 /** 
  * @param array<array{modelo: string, precio_dia: float}> $vehiculos
@@ -26,34 +26,34 @@ function calcular_alquiler(array $vehiculos, int $dias): float {
        throw new InvalidArgumentException("No puede estar vacío el listado de vehículos");
     }
     
-    $costeBase = 0.0;
+    $coste_base = 0.0;
     foreach ($vehiculos as $v) {
-        $costeBase += ($v['precio_dia'] ?? 0.0) * $dias;
+        $coste_base += ($v['precio_dia'] ?? 0.0) * $dias;
     }
     
-    if ($costeBase > 500) {
-        $total = $costeBase * 0.85;
-    } elseif ($costeBase > 200) {
-        $total = $costeBase * 0.95;
+    if ($coste_base > 500) {
+        $total = $coste_base * 0.85;
+    } elseif ($coste_base > 200) {
+        $total = $coste_base * 0.95;
     } else {
-        $total = $costeBase;
+        $total = $coste_base;
     }
     
     return round($total, 2);
 }
 
-// Lista de vehículos de prueba
-$vehiculosSeleccionados = [
+// Lista de vehiculos de prueba
+$vehiculos_eleccionados = [
     ['modelo' => 'Tesla Model 3', 'precio_dia' => 60.0],
     ['modelo' => 'Nissan Leaf', 'precio_dia' => 40.0],
 ];
 
-// Cálculo procesado en variable (sin echos directos)
+// Calculo procesado en variable
 $total_alquiler = 0.0;
 $error_alquiler = null;
 
 try {
-    $total_alquiler = calcular_alquiler($vehiculosSeleccionados, $unidades);
+    $total_alquiler = calcular_alquiler($vehiculos_eleccionados, $unidades);
 } catch (InvalidArgumentException $error) {
     $error_alquiler = $error->getMessage();
 }
